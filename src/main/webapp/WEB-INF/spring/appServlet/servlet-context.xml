@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+<!-- ★★★ 기본 name space가 무조건 하나 지정되어야되고 - 얘만 namespace 를 생략할수있다 
+ / 얘의 기본 namespace는 mvc로 지정햇으므로, mvc태그는 namespace 생략하고 그 외 태그는 ㄹnamespace:tag 형식으로 작성 해야된다  -->
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+<!-- ★★★ annotation-driven 얘가하는일 : 	mvc관련 annotaion 설정 - @controller  @Service @Repository  -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+
+<!-- ★★★ resources자원들 : src/main/webapp/resources 하위의 static 자원 요청 시 해당경로에서 처리하도록 한다  // mapping="/resources/** : 웹루트    -->	
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	
+<!-- ★★★ controller의 handler method(=웹요청 처리 메소드)가 리턴한 viewName을 완성해서 치리하는 빈   -   접두 접미사를 다 나눴음   -->	
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+<!-- 	base package 하위의 component클래스를 빈으로 등록해서 관리하는역할 / 단 servlet context의  빈으로 등록해서관리 -->		
+	<context:component-scan base-package="com.sh.spring" />
+	
+</beans:beans>

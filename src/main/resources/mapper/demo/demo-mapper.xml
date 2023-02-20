@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- #6.2 @Mapper 인터페이스 등록. 해당인터페이스 구현 객체를 동적으로 생성해서 빈으로 사용. 
+ 이거 impl 날리고 쓸려면 namespace 다르게 써야됨 -->
+
+<mapper namespace="com.sh.spring.demo.model.dao.DemoDao">
+
+	<insert id="insertDev">
+		insert into
+			dev
+		values (
+			seq_dev_no.nextval, 
+			#{name}, 
+			#{career}, 
+			#{email}, 
+			#{gender}, 
+			#{lang}, 
+			default 
+		)
+	</insert>
+	
+<!-- 	여러명 조회  -->
+	<select id="selectDevList" resultMap="devMap">
+	 select * from dev order by no desc	
+	
+	</select>
+	
+	<resultMap type="dev" id="devMap">
+<!-- 	암것도안쓸래 걍 알아서 카멜케이싱 해줄듯  createdAt 이렇게 -->
+	</resultMap>
+
+	<select id="selectOneDevList" resultMap="devMap">
+		select * from dev where no = #{no}
+	</select>
+	
+ <!--  한명 update 	-->
+	<update id="updateDev">
+		update dev
+		set
+		    name = #{name}, 
+			career=#{career}, 
+			email=#{email}, 
+			gender=#{gender},
+			lang = #{lang} 
+		where no = #{no}
+	</update>
+	
+</mapper>

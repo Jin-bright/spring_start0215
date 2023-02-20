@@ -4,15 +4,46 @@
 
 	<!-- Appenders -->
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
-		<param name="Target" value="System.out" />
+		<param name="Target" value="System.out" /> <!-- 타겟속성이 sysout / appender에 의해서 출력됨 -->
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
+	<!-- Appender 다음 loger을 써야됨 / file출력용 appender 만들기  -->
+	<!-- %F파일명  // %L : 라인넘버      <<<< %c(%L)   >>>>>   -->
+	<appender name="fileLogger" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="${catalina.base}/logs/hello-spring/hello-spring.log" /> <!-- 타겟속성이 sysout / appender에 의해서 출력됨 -->
+		<param name="append" value="true" />
+		<param name="datePattern" value=".yy-MM-dd" />
+			<layout class="org.apache.log4j.PatternLayout">
+				<param name="ConversionPattern" value="%-5p: [%d{yy-MM-dd HH:mm:ss}] %c(%L) - %m%n" />
+			</layout>
+	</appender>
 	
+	<!-- 쌤이준거  -->
+    <appender name="sqlLogger" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-5p: %m%n" />
+        </layout>
+    </appender>
+
+  
+   <!-- Query Loggers  -->
+    <logger name="jdbc.sqlonly" additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="sqlLogger"/>
+    </logger>
+    <logger name="jdbc.resultsettable" additivity="false">
+        <level value="INFO" />
+        <appender-ref ref="sqlLogger"/>
+    </logger>
+    
+    
+	
+	<!-- ■■ logger : 로그수집하는 역할  (0217)   -->
 	<!-- Application Loggers -->
-	<logger name="com.sh.spring">
-		<level value="info" />
+	<logger name="com.sh.spring"> <!-- 여기하위패키지는 다 수집됨 --> 
+		<level value="debug" /> <!-- ■■ info 이상만 출력됨  : info /warn /error/ fetal만 출력됨 //info하위는생략(debug,trace)   -->
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
@@ -34,8 +65,9 @@
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="warn" />
-		<appender-ref ref="console" />
+		<priority value="warn" />  <!--  priority = level 근데얘보다 위에 선언한 level이 더 우선순위가 높은거임  -->
+		<appender-ref ref="console" /> <!-- 맨위에 있는 appender name을 가리킴. 수집된거를 다 보낸다 ?  -->
+		<appender-ref ref="fileLogger" /> 
 	</root>
 	
 </log4j:configuration>

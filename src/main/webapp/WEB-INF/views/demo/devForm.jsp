@@ -73,6 +73,9 @@ div#demo-container{
 	<!-- 전송버튼  -->
 	<div class="list-group">
 	  <button type="button" onclick="submit('dev1');" class="list-group-item list-group-item-action">파라미터 핸들링 - HttpServletRequest</button>
+  	  <button type="button" onclick="submit('dev2');" class="list-group-item list-group-item-action"> @RequestParam </button>
+   	  <button type="button" onclick="submit('dev3');" class="list-group-item list-group-item-action"> 커맨드객체  </button>
+   	   <button type="button" onclick="insertDev();" class="list-group-item list-group-item-action"> db저장  </button>
 	</div>
 </div>
 
@@ -82,6 +85,16 @@ const submit = (id) => {
 	frm.action = `${pageContext.request.contextPath}/demo/\${id}.do`;
 	frm.submit();
 }
+
+const insertDev = () => {
+	const frm = document.devFrm;
+	frm.action = `${pageContext.request.contextPath}/demo/insertDev.do`;
+	frm.method = "post";
+	frm.submit();
+}
+
+
+
 
 </script>
 

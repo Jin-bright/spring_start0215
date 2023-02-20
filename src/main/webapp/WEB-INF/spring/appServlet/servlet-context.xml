@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
 
 <!-- ★★★ 기본 name space가 무조건 하나 지정되어야되고 - 얘만 namespace 를 생략할수있다 
  / 얘의 기본 namespace는 mvc로 지정햇으므로, mvc태그는 namespace 생략하고 그 외 태그는 ㄹnamespace:tag 형식으로 작성 해야된다  -->
@@ -32,4 +34,23 @@
 <!-- 	base package 하위의 component클래스를 빈으로 등록해서 관리하는역할 / 단 servlet context의  빈으로 등록해서관리 -->		
 	<context:component-scan base-package="com.sh.spring" />
 	
+<!-- #8. interceptor 등록  -->	
+
+<interceptors>
+	<interceptor>
+		<mapping path="/**" /> <!--  모든경로 의미  -->
+		<beans:bean class="com.sh.spring.common.interceptor.LoggerInterceptor" />	
+	</interceptor>	
+
+	<interceptor>
+		<mapping path="/member/memberDetail.do"/>
+		<mapping path="/member/memberUpdate.do"/>
+		<beans:bean class="com.sh.spring.common.interceptor.LoginInterceptor" />	
+	</interceptor>
+
+</interceptors>
+
+<!--  #10.1 aop 관련 어노테이션 등록 설정  -->
+<aop:aspectj-autoproxy />
+
 </beans:beans>

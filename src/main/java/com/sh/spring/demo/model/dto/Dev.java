@@ -1,7 +1,18 @@
 package com.sh.spring.demo.model.dto;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 
 public class Dev {
 	private int no; // pk로 사용할 필드임 
@@ -12,77 +23,8 @@ public class Dev {
 	private String[] lang;
 	private LocalDateTime createdAt;
 	
-	//기본
-	public Dev() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
-	//parameter
-	public Dev(int no, String name, int career, String email, Gender gender, String[] lang, LocalDateTime createdAt) {
-		super();
-		this.no = no;
-		this.name = name;
-		this.career = career;
-		this.email = email;
-		this.gender = gender;
-		this.lang = lang;
-		this.createdAt = createdAt;
-	}
-	
-	//get set 
-	public int getNo() {
-		return no;
-	}
-	public void setNo(int no) {
-		this.no = no;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public int getCareer() {
-		return career;
-	}
-	public void setCareer(int career) {
-		this.career = career;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public Gender getGender() {
-		return gender;
-	}
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
-	public String[] getLang() {
-		return lang;
-	}
-	public void setLang(String[] lang) {
-		this.lang = lang;
-	}
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-	
-	//to
-	@Override
-	public String toString() {
-		return "Dev [no=" + no + ", name=" + name + ", career=" + career + ", email=" + email + ", gender=" + gender
-				+ ", lang=" + Arrays.toString(lang) + ", createdAt=" + createdAt + "]";
-	}
-	
-	
-	
+	//boilerplate - getset 기본+매개변수 생성자 이런 코드 맨날 맨날 뻔한 코드 
+	// 그래서 lombok을 설치함 
 	
 
 }

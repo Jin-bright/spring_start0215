@@ -20,6 +20,13 @@
 <!-- 사용자작성 css -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css" />
 
+<!--  메세지 -->
+<c:if test="${not empty msg}">
+<script>
+	alert('${msg}');
+</script>
+</c:if>
+
 </head>
 <body>
 <div id="container">
@@ -50,10 +57,25 @@
                             <a class="dropdown-item" href="${pageContext.request.contextPath}/demo/devList.do">Dev 목록</a>
                         </div>
 				    </li>
+                       <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/todo/todoList.do">Todo</a></li>			    
 			    </ul>
-			    <button class="btn btn-outline-success my-2 my-sm-0" type="button" >로그인</button>
-                &nbsp;
-                <button class="btn btn-outline-success my-2 my-sm-0" type="button">회원가입</button>
+			    
+			    <c:if test="${empty loginMember}">			    
+				    <button class="btn btn-outline-success my-2 my-sm-0" type="button" 
+				      onclick="location.href='${pageContext.request.contextPath}/member/memberLogin.do'">로그인</button>&nbsp;
+	                <button class="btn btn-outline-success my-2 my-sm-0" type="button"
+	                 onclick="location.href='${pageContext.request.contextPath}/member/memberEnroll.do'">회원가입</button>
+			    </c:if>
+			    
+			    
+			    <c:if test="${ not empty loginMember}">
+			    	<span><a href="${pageContext.request.contextPath}/member/memberDetail.do?memberId=${loginMember.memberId}">${loginMember.name}</a>님, 안녕하세요😊 </span>
+					&nbsp;
+                	<button class="btn btn-outline-success my-2 my-sm-0" type="button"
+	                 onclick="location.href='${pageContext.request.contextPath}/member/memberLogout.do'">로그아웃</button>
+					
+			    </c:if>
+                
 			 </div>
 		</nav>
 	</header>
